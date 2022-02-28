@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rpn.API</name>
+    </assembly>
+    <members>
+        <member name="M:Rpn.API.BusinessLogic.RpnService.AddToStack(Rpn.API.Messages.RpnRequest)">
+            <summary>
+            
+            </summary>
+            <param name="req"></param>
+        </member>
+        <member name="M:Rpn.API.BusinessLogic.RpnService.GetStack">
+            <summary>
+            Get all stack elements
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rpn.API.BusinessLogic.RpnService.GetOps">
+            <summary>
+            Get the operators
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rpn.API.BusinessLogic.RpnService.DeleteStack">
+            <summary>
+            Reset the stack
+            </summary>
+        </member>
+        <member name="T:Rpn.API.Controllers.RpnController">
+            <summary>
+            Rpn calculator Controller
+            </summary>
+        </member>
+        <member name="M:Rpn.API.Controllers.RpnController.#ctor(Rpn.API.BusinessLogic.IRpnService)">
+            <summary>
+            Controller constructor
+            </summary>
+            <param name="rpnService"></param>
+        </member>
+        <member name="M:Rpn.API.Controllers.RpnController.GetStack">
+            <summary>
+            Retourner tous les éléments de la pile
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rpn.API.Controllers.RpnController.GetOperators">
+            <summary>
+            Retourner tous les opérators supportés par l'API
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rpn.API.Controllers.RpnController.Push(System.Double)">
+            <summary>
+            Pousser un réel sur la pile
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rpn.API.Controllers.RpnController.Evaluate(System.String)">
+            <summary>
+            Evaluer les valeurs dans la stack, veuillez donner un opérateur dans cette list [ADD,SOUS,MUL,DIV]
+            </summary>
+            <param name="op"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rpn.API.Controllers.RpnController.Reset">
+            <summary>
+            Nettoyage de la pile
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
