@@ -1,8 +1,10 @@
-﻿using Rpn.DAL.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Rpn.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rpn.DAL.Repository
 {
@@ -15,47 +17,50 @@ namespace Rpn.DAL.Repository
             _rpnCalculationDbContext = rpnCalculationDbContext;
         }
 
-        public IEnumerable<TLine> GetAll()
+        public async Task<IEnumerable<TLine>> GetAll()
         {
-            return _rpnCalculationDbContext.TLines;
+          return await _rpnCalculationDbContext.TLines
+                           .Select(l => new TLine() { 
+                               Id = l.Id,
+                               ModifiedOn = l.ModifiedOn,
+                               value = l.value
+                           })
+                           .ToListAsync();
         }
 
-        public void Insert(TLine line)
+        public async Task Insert(TLine line)
         {
-            _rpnCalculationDbContext.Add(line);
-            _rpnCalculationDbContext.SaveChanges();
+            await _rpnCalculationDbContext.AddAsync(line);
+            await _rpnCalculationDbContext.SaveChangesAsync();
         }
 
-        public void DeleteAll()
+        public async Task DeleteAll()
         {
-            var lines = _rpnCalculationDbContext.TLines;
+            var lines = await _rpnCalculationDbContext.TLines.ToListAsync();
             _rpnCalculationDbContext.TLines.RemoveRange(lines);
+            await _rpnCalculationDbContext.SaveChangesAsync();
         }
 
-        public TLine GetLastInStack()
+        public async Task<TLine> GetLastInStack()
         {
-            return _rpnCalculationDbContext.TLines.OrderByDescending(l => l.ModifiedOn).First();
+            return await _rpnCalculationDbContext.TLines.OrderByDescending(l => l.ModifiedOn).FirstAsync();
         }
 
-        public void DeleteElement(TLine line)
+        public async Task DeleteElement(TLine line)
         {
-            _rpnCalculationDbContext.Remove(line);
-            _rpnCalculationDbContext.SaveChanges();
+             _rpnCalculationDbContext.Remove(line);
+            await _rpnCalculationDbContext.SaveChangesAsync();
         }
 
-        public void updateStack(double value)
+        public async Task updateStack(double value)
         {
-            var last = this.GetLastInStack();
-            DeleteElement(last);
+            var last = await this.GetLastInStack();
+            await DeleteElement(last);
 
-            var beforeLast = this.GetLastInStack();
-            DeleteElement(beforeLast);
+            var beforeLast = await this.GetLastInStack();
+            await DeleteElement (beforeLast);
 
-            Insert(new TLine()
-            {
-                value = value,
-                ModifiedOn = DateTime.Now
-            });
+            await Insert(new TLine() { value = value, ModifiedOn = DateTime.Now  });
         }
     }
 }

@@ -8,11 +8,11 @@ namespace Rpn.API.BusinessLogic
 {
     public interface IRpnService
     {
-        void AddToStack(RpnRequest req);
-        RpnResponse GetStack();
+        Task AddToStack(RpnRequest req);
+        Task<RpnResponse> GetStack();
         string GetOps();
-        void DeleteStack();
-        EvaluationResponse Eval(string op);
+        Task<EvaluationResponse> Eval(string op);
+        Task DeleteStack();
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Rpn.API.BusinessLogic;
 using Rpn.API.Messages;
+using System.Threading.Tasks;
 
 namespace Rpn.API.Controllers
 {
@@ -26,10 +27,9 @@ namespace Rpn.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("stack")]
-        public IActionResult GetStack()
+        public async Task<IActionResult> GetStack()
         {
-            var stackResponse = _rpnService.GetStack();
-            stackResponse = null;
+            var stackResponse = await _rpnService.GetStack();
             return Ok(stackResponse);
         }
 
@@ -51,9 +51,9 @@ namespace Rpn.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Push/{value}")]
-        public IActionResult Push(double value)
+        public async Task<IActionResult> Push(double value)
         {
-            _rpnService.AddToStack(new Messages.RpnRequest()
+            await _rpnService.AddToStack(new Messages.RpnRequest()
             {
                 Value =value
             });
@@ -67,9 +67,9 @@ namespace Rpn.API.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("eval/{op}")]
-        public IActionResult Evaluate(string op)
+        public async Task<IActionResult> Evaluate(string op)
         {
-            EvaluationResponse res = _rpnService.Eval(op);
+            EvaluationResponse res = await _rpnService.Eval(op);
 
             return Ok(res.Message);
         }
@@ -79,9 +79,9 @@ namespace Rpn.API.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("Reset")]
-        public IActionResult Reset()
+        public async Task<IActionResult> Reset()
         {
-            _rpnService.DeleteStack();
+            await _rpnService.DeleteStack();
             return Ok("La pile a été nettoyé");
         }
     }

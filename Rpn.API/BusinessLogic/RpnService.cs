@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using Rpn.API.Constants;
 using Rpn.API.Helper;
+using System.Threading.Tasks;
 
 namespace Rpn.API.BusinessLogic
 {
@@ -20,9 +21,9 @@ namespace Rpn.API.BusinessLogic
         /// 
         /// </summary>
         /// <param name="req"></param>
-        public void AddToStack(RpnRequest req)
+        public async Task AddToStack(RpnRequest req)
         {
-            _lineRepository.Insert(new DAL.Entities.TLine()
+            await _lineRepository.Insert(new DAL.Entities.TLine()
             {
                 value = req.Value,
                 ModifiedOn = DateTime.Now
@@ -33,10 +34,10 @@ namespace Rpn.API.BusinessLogic
         /// Get all stack elements
         /// </summary>
         /// <returns></returns>
-        public RpnResponse GetStack()
+        public async Task<RpnResponse> GetStack()
         {
-            var tab = _lineRepository.GetAll().Select(l => l.value).ToArray();
-            var result = String.Join(" | ", Array.ConvertAll<double, String>(tab, Convert.ToString));
+            var tab = await _lineRepository.GetAll();
+            var result = String.Join(" | ", Array.ConvertAll<double, String>(tab.Select(t => t.value).ToArray(), Convert.ToString));
 
             return new RpnResponse() { Stack = result };
         }
@@ -50,9 +51,10 @@ namespace Rpn.API.BusinessLogic
             return ConstantsKeys.ops;
         }
             
-        public EvaluationResponse Eval(string op)
+        public async Task<EvaluationResponse> Eval(string op)
         {
-            var stackArray = _lineRepository.GetAll().ToArray();
+            var stackArrayAsync = await _lineRepository.GetAll();
+            var stackArray = stackArrayAsync.ToArray();
             double updateValue = 0;
             if (!Enum.IsDefined(typeof(OperatorsEnum), op.ToUpper()))
             {
@@ -93,7 +95,7 @@ namespace Rpn.API.BusinessLogic
             }
                 
             //Update the stack to persiste the update values
-            _lineRepository.updateStack(updateValue);
+            await _lineRepository.updateStack(updateValue);
 
             return new EvaluationResponse()
             {
@@ -104,9 +106,9 @@ namespace Rpn.API.BusinessLogic
         /// <summary>
         /// Reset the stack
         /// </summary>
-        public void DeleteStack()
+        public async Task DeleteStack()
         {
-            _lineRepository.DeleteAll();
+           await _lineRepository.DeleteAll();
         }
             
     }

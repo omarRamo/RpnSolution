@@ -2,21 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rpn.DAL.Repository
 {
     public interface ILineRepository
     {
-        IEnumerable<TLine> GetAll();
+        Task<IEnumerable<TLine>> GetAll();
 
-        void Insert(TLine line);
+        Task Insert(TLine line);
 
-        public void DeleteAll();
+        Task DeleteAll();
 
-        TLine GetLastInStack();
+        Task<TLine> GetLastInStack();
 
-        void DeleteElement(TLine line);
+        Task DeleteElement(TLine line);
 
-        void updateStack(double value);
+        Task updateStack(double value);
     }
 }

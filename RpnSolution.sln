@@ -9,15 +9,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1EF02760-9578-43B2-8DB5-ABB297706BBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rpn.API", "Rpn.API\Rpn.API.csproj", "{78C7C33D-E654-4CC2-83A9-FBD43C69B68C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rpn.API", "Rpn.API\Rpn.API.csproj", "{78C7C33D-E654-4CC2-83A9-FBD43C69B68C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rpn.Tests", "Rpn.Tests\Rpn.Tests.csproj", "{7589B5B9-4337-4B35-AFEC-F89BB3A5A0EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rpn.Tests", "Rpn.Tests\Rpn.Tests.csproj", "{7589B5B9-4337-4B35-AFEC-F89BB3A5A0EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rpn.DAL", "Rpn.DAL\Rpn.DAL.csproj", "{B13D7310-0345-4219-96C2-4FB2F56833D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rpn.DAL", "Rpn.DAL\Rpn.DAL.csproj", "{B13D7310-0345-4219-96C2-4FB2F56833D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F8310125-B582-4149-B0CE-A45B0DA4F7D1}"
 	ProjectSection(SolutionItems) = preProject
 		install.sql = install.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C7D9EC8-FC86-4351-94C8-E09AC298C405}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Global
