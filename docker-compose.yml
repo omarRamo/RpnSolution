@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  rpn.api:
+    image: ${DOCKER_REGISTRY-}rpnapi
+    build:
+      context: .
+      dockerfile: Rpn.API/Dockerfile
